@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -14,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import {Link, useLocation} from 'react-router-dom'
+import SettingsIcon from '@mui/icons-material/Settings';
 
 const drawerWidth = 240;
 
@@ -59,6 +59,15 @@ export default function Navbar(props) {
                         <InfoIcon />
                   </ListItemIcon>
                   <ListItemText primary={"About"} />
+                </ListItemButton>
+              </ListItem>
+
+              <ListItem key={3} disablePadding>
+              <ListItemButton component={Link} to="/settings" selected={"/settings" === path}>
+                  <ListItemIcon>
+                        <SettingsIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Settings"} />
                 </ListItemButton>
               </ListItem>
 

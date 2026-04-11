@@ -1,6 +1,6 @@
 import {createTheme} from "@mui/material/styles";
 
-const MyTheme = createTheme({
+const DarkTheme = createTheme({
     palette: {
         default:"dark",
         primary:{
@@ -12,4 +12,4 @@ const MyTheme = createTheme({
         }
     })
 
-export default MyTheme
+export default DarkTheme
