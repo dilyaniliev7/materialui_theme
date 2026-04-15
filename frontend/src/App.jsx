@@ -8,15 +8,27 @@ import LightTheme from './components/material_ui_themes/LightTheme'
 import DarkTheme from './components/material_ui_themes/DarkTheme'
 import GreenTheme from './components/material_ui_themes/GreenTheme'
 import Settings from './components/material_ui_themes/Settings'
-import {useState} from 'react'
-
+import {useState, useEffect} from 'react'
+import AxiosInstance from './components/Axios'
 function App() {
 
-  const options = [
-      {name:"Dark Theme", value: DarkTheme},
-      {name:"Light Theme", value: LightTheme},
-      {name:"Green Theme", value: GreenTheme},
-      ]
+  const [themes,setThemes] = useState('')
+  const [activeThemes, setActiveTheme] = useState('')
+  const GetData = () => {
+      AxiosInstance.get(`themes/`).then((res) => {
+          setThemes(res.data)
+          })
+
+      AxiosInstance.get(`activetheme/`).then((res) => {
+          setActiveTheme(res.data)
+          })
+      }
+
+  useEffect(() => {
+      GetData()
+      }, [])
+
+
   const [theme, setTheme] = useState('LightTheme');
 
   const handleFormChange = (event) => {
@@ -25,13 +37,13 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={LightTheme}>
           <Navbar
             content={
               <Routes>
                   <Route path="/" element={<Home/>}/>
                   <Route path="/about" element={<About/>}/>
-                  <Route path="/settings" element={<Settings options={options} value={theme} handleChange={handleFormChange}/>}/>
+                  <Route path="/settings" element={<Settings options={themes} value={theme} handleChange={handleFormChange}/>}/>
               </Routes>
             }
           />
