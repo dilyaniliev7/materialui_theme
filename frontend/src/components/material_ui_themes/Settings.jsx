@@ -9,20 +9,32 @@ import Select from '@mui/material/Select';
 import AxiosInstance from './Axios';
 import Button from '@mui/material/Button';
 
-const Settings = ({options, value, handleChange}) =>{
+const Settings = ({options, value, handleChange, counter, activetheme}) =>{
 
-    const Submission = () => {
-        AxiosInstance.post(`activetheme/`, {
+    const Submission = (event) => {
+        event.preventDefault()
+        if (counter === 0) {
+            AxiosInstance.post(`activetheme/`, {
             theme: value
             })
         .then((res) => {
-            console.log(res)
+            window.location.reload()
             })
-        }
+        }else{
+            AxiosInstance.put(`activetheme/${activetheme[0].id}/`, {
+                theme: value
+                })
+            .then((res) => {
+            window.location.reload()
+            })
+            }
+
+    }
 
     return(
         <div>
               <form onSubmit={Submission}>
+                  <p>We have {counter} active themes </p>
                   <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label">Pick a theme:</InputLabel>
                           <Select
@@ -34,12 +46,12 @@ const Settings = ({options, value, handleChange}) =>{
                           >
                           {
                               options.map((option) => (
-                                    <MenuItem value={option.id}>{option.name}</MenuItem>
+                                    <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
                                   ))
                               }
                           </Select>
                     </FormControl>
-                    <Button type="submit" variant="contained">Submit theme</Button>
+                    <Button sx={{marginTop: '30px', width: '100%'}} type="submit" variant="contained">Submit theme</Button>
               </form>
         </div>
     )

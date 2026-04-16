@@ -32,3 +32,12 @@ class ActiveThemeViewSet(viewsets.ViewSet):
             return Response(serializer.data)
         else:
             return Response(serializer.errors, status=400)
+
+    def update(self, request, pk=None):
+        activetheme = ActiveTheme.objects.get(pk=pk)
+        seializer = self.serializer_class(activetheme, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=400)
