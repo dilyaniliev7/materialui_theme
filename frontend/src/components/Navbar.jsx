@@ -54,11 +54,11 @@ export default function Navbar(props) {
               </ListItem>
 
               <ListItem key={2} disablePadding>
-              <ListItemButton component={Link} to="/about" selected={"/about" === path}>
+              <ListItemButton component={Link} to="/create" selected={"/create" === path}>
                   <ListItemIcon>
                         <InfoIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"About"} />
+                  <ListItemText primary={"Create theme"} />
                 </ListItemButton>
               </ListItem>
 
