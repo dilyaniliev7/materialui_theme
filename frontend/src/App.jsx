@@ -12,8 +12,9 @@ import {useState, useEffect} from 'react'
 import AxiosInstance from './components/Axios'
 import DatabaseTheme from './components/material_ui_themes/DatabaseTheme'
 import CreateTheme from './components/material_ui_themes/CreateTheme'
-function App() {
+import EditTheme from './components/material_ui_themes/EditTheme'
 
+function App() {
   const [themes,setThemes] = useState([])
   const [activeThemes, setActiveTheme] = useState([])
   const [theme, setTheme] = useState('');
@@ -58,8 +59,9 @@ function App() {
           <Navbar
             content={
               <Routes>
-                  <Route path="/" element={<Home/>}/>
+                  <Route path="/" element={<Home themes={themes}/>}/>
                   <Route path="/create" element={<CreateTheme/>}/>
+                  <Route path="/edit/:id" element={<EditTheme/>}/>
                   <Route path="/about" element={<About/>}/>
                   <Route path="/settings" element={<Settings options={themes} value={theme} handleChange={handleFormChange} counter={activeThemeCount} activetheme={activeTheme}/>}/>
               </Routes>

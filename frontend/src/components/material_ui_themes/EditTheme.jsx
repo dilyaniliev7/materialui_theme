@@ -1,4 +1,4 @@
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -9,7 +9,25 @@ import { Box } from '@mui/material'
 import AxiosInstance from './Axios';
 import Button from '@mui/material/Button';
 
-const CreateTheme = () =>{
+const EditTheme = () =>{
+    const id = window.location.pathname.split('/').pop()
+    const [editTheme, setEditTheme] = useState([])
+
+    const GetData = () => {
+      AxiosInstance.get(`themes/${id}/`).then((res) => {
+          setEditThemes(res.data)
+          setName(res.data.name)
+          setMode(res.data.mode)
+          setPrimaryColor(res.data.primary_color)
+          setSecondaryColor(res.data.secondary_color)
+          })
+
+      }
+
+  useEffect(() => {
+      GetData()
+      }, [])
+
     const [name, setName] = useState('')
     const [mode, setMode] = useState('')
     const [primaryColor, setPrimaryColor] = useState('')
@@ -33,7 +51,7 @@ const CreateTheme = () =>{
 
      const Submission = (event) => {
         event.preventDefault()
-            AxiosInstance.post(`themes/`, {
+            AxiosInstance.put(`themes/${id}/`, {
                 name: name,
                 mode: mode,
                 primary_color: primaryColor,
@@ -91,4 +109,4 @@ const CreateTheme = () =>{
 
 }
 
-export default CreateTheme
+export default EditTheme
